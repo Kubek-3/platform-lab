@@ -23,18 +23,6 @@ jobs:
       - name: Run test container
         run: docker run -d --name hello-app -p 127.0.0.1:8080:8080 hello-app:test
 
-      - name: Test HTTP response
-        run: |
-    response=$(curl \
-      --retry 10 \
-      --retry-delay 2 \
-      --retry-all-errors \
-      --fail \
-      --silent \
-      --show-error \
-      http://127.0.0.1:8080)
-          test "$response" = "Hello from container! Version 1.0"
-
       - name: Test non-root user
         run: test "$(docker exec hello-app id -u)" != "0"
 

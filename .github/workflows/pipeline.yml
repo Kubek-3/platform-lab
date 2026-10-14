@@ -25,7 +25,14 @@ jobs:
 
       - name: Test HTTP response
         run: |
-          response=$(curl --retry 10 --retry-delay 1 --retry-connrefused --fail --silent --show-error http://127.0.0.1:8080)
+    response=$(curl \
+      --retry 10 \
+      --retry-delay 2 \
+      --retry-all-errors \
+      --fail \
+      --silent \
+      --show-error \
+      http://127.0.0.1:8080)
           test "$response" = "Hello from container! Version 1.0"
 
       - name: Test non-root user
